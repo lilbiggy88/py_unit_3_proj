@@ -6,6 +6,10 @@
 </head>
 
 <body>
+    <div class="navbar-nav">
+        <a class="nav-link" href="/melons">All Melons</a>
+        <a class="nav-link" href="/cart">My Shopping Cart</a>
+     </div>
     <nav class="navbar navbar-dark bg-dark navbar-expand-lg">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">Ubermelon</a>
@@ -17,7 +21,9 @@
     </nav>
 
   <div class="container">
-
+        {% for message in get_flashed_messages() %}
+            <p class="alert alert-warning">{{ message }}</p>
+        {% endfor %}
     <!-- This is where the main content goes. -->
     {% block body %}
         BODY OF PAGE GOES HERE VIA INHERITANCE

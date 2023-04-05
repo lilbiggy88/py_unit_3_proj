@@ -1,0 +1,30 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/site.css"/>
+    <title>Document</title>
+</head>
+<body>
+{% extends 'base.html' %}
+    <h1>Melons!</h1>
+
+{% block body %}
+<div id="melon-list">
+{% for melon in melon_list %}
+    <div class="card text-center">
+        <img class="melon-image" src="{{ melon.image_url }}">
+        <h5>
+        <a href="{{ url_for('melon_details', melon_id=melon.melon_id) }}">
+{{ melon.common_name }}</a>
+        </h5>
+        {{ melon.price.str() }}
+    </div>
+{% endfor %}
+</div>
+{% endblock %}
+</body>
+</html>
