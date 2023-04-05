@@ -28,6 +28,9 @@ def melon_type(melon_id):
 def add_to_cart(melon_id):
     """Add a melon to the cart and redirect to the shopping cart page. """
 
+    if 'username' not in session:
+        return redirect('/login')
+
     if 'cart' not in session:
         session['cart'] = {}
     cart = session['cart']
@@ -43,6 +46,9 @@ def add_to_cart(melon_id):
 def cart():
     """Display contents of shopping cart. """
 
+    if 'username' not in session:
+        return redirect('/login')
+    
     order_total = 0
     cart_melons = []
 
@@ -80,9 +86,25 @@ def login():
         if not user or user['password'] != password:
             flash("Invalid username or password")
             return redirect('/login')
+        
+        session["username"] = user["username"]
+        flash("Logged in.")
+        return redirect("/melons")
 
 
     return render_template("login.html", form=form)
+
+@app.route("/logout")
+def logout():
+    """Log user out."""
+
+    del session["username"]
+    flash("Logged out.")
+    return redirect("/login")
+
+@app.errorhandler(404)
+def error_404(e):
+    return render_template("404.html")
 
 if __name__ == "__main__":
     app.env = "development"
